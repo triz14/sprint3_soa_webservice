@@ -1,0 +1,19 @@
+spring:
+  datasource:
+    url: jdbc:h2:mem:rivaia_auth_test;MODE=PostgreSQL;DATABASE_TO_LOWER=TRUE;DB_CLOSE_DELAY=-1
+    username: sa
+    password: ""
+  jpa:
+    hibernate:
+      ddl-auto: create-drop
+  flyway:
+    enabled: false
+
+app:
+  jwt:
+    issuer: rivaia-auth-service
+    expiration: 15m
+  admin:
+    name: Admin Teste
+    email: admin@test.com
+    password: Admin@12345

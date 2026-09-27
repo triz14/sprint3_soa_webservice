@@ -1,0 +1,31 @@
+spring:
+  application:
+    name: rivaia-auth-service
+  datasource:
+    url: ${DB_URL:jdbc:postgresql://localhost:5432/rivaia_auth}
+    username: ${DB_USER:rivaia}
+    password: ${DB_PASSWORD:rivaia}
+  jpa:
+    open-in-view: false
+    hibernate:
+      # O schema é criado e versionado pelo Flyway (src/main/resources/db/migration)
+      ddl-auto: none
+  flyway:
+    enabled: true
+
+server:
+  port: ${SERVER_PORT:8080}
+
+app:
+  jwt:
+    issuer: ${JWT_ISSUER:rivaia-auth-service}
+    expiration: ${JWT_EXPIRATION:1h}
+  admin:
+    name: ${ADMIN_NAME:Administrador RivaIA}
+    email: ${ADMIN_EMAIL:admin@rivaia.com}
+    password: ${ADMIN_PASSWORD:Admin@12345}
+
+springdoc:
+  swagger-ui:
+    path: /swagger-ui.html
+    operations-sorter: method

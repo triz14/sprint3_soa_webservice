@@ -1,0 +1,47 @@
+### Arquivo para a extensão REST Client (VS Code) ou HTTP Client (IntelliJ)
+@base = http://localhost:8080
+
+### Cadastro público (cria USER)
+POST {{base}}/api/v1/auth/register
+Content-Type: application/json
+
+{"name": "Bia", "email": "bia@rivaia.com", "password": "Senha@1234"}
+
+### Login USER
+# @name loginUser
+POST {{base}}/api/v1/auth/login
+Content-Type: application/json
+
+{"email": "bia@rivaia.com", "password": "Senha@1234"}
+
+### Meu perfil
+GET {{base}}/api/v1/users/me
+Authorization: Bearer {{loginUser.response.body.accessToken}}
+
+### USER tentando listar usuários (espera 403)
+GET {{base}}/api/v1/users
+Authorization: Bearer {{loginUser.response.body.accessToken}}
+
+### Login ADMIN
+# @name loginAdmin
+POST {{base}}/api/v1/auth/login
+Content-Type: application/json
+
+{"email": "admin@rivaia.com", "password": "Admin@12345"}
+
+### ADMIN lista usuários
+GET {{base}}/api/v1/users?page=0&size=10
+Authorization: Bearer {{loginAdmin.response.body.accessToken}}
+
+### ADMIN cria usuário
+POST {{base}}/api/v1/users
+Authorization: Bearer {{loginAdmin.response.body.accessToken}}
+Content-Type: application/json
+
+{"name": "Analista", "email": "analista@rivaia.com", "password": "Senha@1234", "role": "USER"}
+
+### Sem token (espera 401)
+GET {{base}}/api/v1/users/me
+
+### Chave pública
+GET {{base}}/.well-known/jwks.json
